@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 
+app.use(express.json())
+
 const notes = [
   {
     "id": 1,
@@ -41,6 +43,20 @@ app.get('/api/notes/:id', (request, response) => {
   }
 })
 
+app.post('/api/notes', (request, response) => {
+  const note = request.body
+
+  const newNote = {
+    id: notes.length + 1,
+    content: note.content,
+    important: typeof note.important === undefined ? false : note.important,
+    date: new Date().toISOString
+  }
+
+  notes = [ ...notes, newNote ]
+
+  response.json(newNote)
+})
 
 const PORT = 3001
 app.listen(PORT, () => {
