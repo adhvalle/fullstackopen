@@ -1,6 +1,8 @@
 const express = require('express')
+const cors = require('cors')
 const app = express()
 
+app.use(cors())
 app.use(express.json())
 
 const notes = [
@@ -56,6 +58,12 @@ app.post('/api/notes', (request, response) => {
   notes = [ ...notes, newNote ]
 
   response.json(newNote)
+})
+
+app.use((request, response) => {
+  response.status(404).json({
+    error: 'Not found'
+  })
 })
 
 const PORT = 3001

@@ -65,7 +65,10 @@ export default function App() {
       {loading ? "Cargando..." : ""}
       <ol>
         {notes.map((note) => (
-          <Note key={note.id} {...note} />
+          <Note 
+            key={note.id} 
+            note={note}  
+          />
         ))}
       </ol>
 
